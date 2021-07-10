@@ -80,7 +80,7 @@ int findRepeatNumber(std::vector<int> &nums){
 //时间：O(nlogn),空间O(1)
 //每次找分为两个区域，统计区域内的数字个数，如果数字个数大于区间长度，则一定有重复数字
 //二分思路：
-//1.start <= end? 是继续，不是推出
+//1.start <= end? 是继续，不是退出
 //2.确定中间值, mid = (end - start)>>2 + start;
 //3.处理一个半区，如果是左半区符合条件，则end = mid，如果是右半区符合条件，则start = mid + 1
 //4.start == end? 是返回start，不是重复1，2，3
