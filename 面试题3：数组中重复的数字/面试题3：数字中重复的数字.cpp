@@ -158,7 +158,7 @@ public:
                 return start;
             }
 
-            if(count > mid - start + 1)//只适合每个位置都有数字的情况，而且数字不适合从0开始
+            if(count > mid - start + 1)//只适合每个位置都有数字的情况
                 end = mid;
             else 
                 start = mid + 1;
