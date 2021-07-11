@@ -59,8 +59,40 @@ BinaryTreeNode *ConstructCore(int *startPreorder, int *endPreorder,
     return root;
 }
 
-                                
-                              
 
 
 //LeetCode版本
+class Solution
+{
+public:
+    TreeNode* Construct(vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd){
+        TreeNode *root = new TreeNode();
+        int rootVal = preorder[preStart];
+        root->val = rootVal;
+        root->left = root->right = nullptr;
+
+        if(preStart == preEnd && inStart == inEnd && preorder[preStart] == inorder[inStart])
+            return root;
+        int inRoot = 0;
+        while(inRoot <= inEnd && inorder[inRoot] != rootVal)
+            ++inRoot;
+        int leftLen = inRoot - inStart;
+        int rightLen = inEnd - inRoot;
+        if(leftLen > 0)
+            root->left = Construct(preorder,preStart+1,preStart+leftLen,inorder,inStart,inRoot-1);
+        if(rightLen > 0)
+            root->right = Construct(preorder,preStart+leftLen+1,preEnd,inorder,inRoot+1,inEnd);
+        return root;
+    }
+
+    TreeNode* buildTree(vector<int> &preorder, vector<int> &inorder){
+        int lengthPreorder = preorder.size();
+        int lengthInorder = inorder.size();
+        if(lengthPreorder == 0 || lengthInorder ==0 || lengthPreorder != lengthInorder)
+            return nullptr;
+
+        int preStart = 0, preEnd = lengthPreorder - 1;
+        int inStart = 0, inEnd = lengthPreorder - 1;
+        return Construct(preorder, preStart, preEnd, inorder, inStart, inEnd);
+    }
+};
