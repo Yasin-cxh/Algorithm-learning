@@ -29,10 +29,11 @@ CMyString::CMyString(char *pData)
 //这也是构造函数
 CMyString::CMyString(const CMyString &str)
 {
-    if(m_pData != nullptr)
-        delete[] m_pData;
-    m_pData = nullptr;
-    int length = strlen(str.m_pData);
+    //if(m_pData != nullptr)
+    //    delete[] m_pData;
+    //m_pData = nullptr;
+    //不需要删除，直接分配就完事
+    int length = strlen(str.m_pData); //这里能访问到m_pdata吗？可以，类函数可以访问到同类型对象的私有成员
     m_pData = new char[length + 1];
     strcpy(m_pData,str.m_pData);
     
@@ -54,7 +55,7 @@ CMyString& CMyString::operator =(const CMyString &str)
     }
     delete[] m_pData;
     m_pData = nullptr;
-    m_pData = new char[strlen(str.m_pData) + 1];
+    m_pData = new char[strlen(str.m_pData) + 1];//指针不能直接用=，必须要是不同的内存块，否则就不是独立的对象
     strcpy(m_pData,str.m_pData);
     return *this;
 }
