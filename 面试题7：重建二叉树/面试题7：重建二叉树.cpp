@@ -56,7 +56,7 @@ BinaryTreeNode *ConstructCore(int *startPreorder, int *endPreorder,
         root->m_pRight = ConstructCore(startPreorder + leftLength + 1, endPreorder, rootInorder + 1, endInorder);
     }
 
-    return root;//***重点，递归完左子树和右子树记得返回父节点
+    return root;//***重点，递归完左子树和右子树记得返回父节点gi
 }
 
 
@@ -71,7 +71,7 @@ public:
         root->val = rootVal;
         root->left = root->right = nullptr;
 
-        if(preStart == preEnd && inStart == inEnd && preorder[preStart] == inorder[inStart])
+        if(preStart == preEnd )
             return root;
         int inRoot = 0;
         while(inRoot <= inEnd && inorder[inRoot] != rootVal)
