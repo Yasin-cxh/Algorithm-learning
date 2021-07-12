@@ -48,6 +48,8 @@ void ReplaceBlank(char *str, int length)
 class Solution{
 public:
     string replaceSpace(string s){
+        if(s.empty()) return s;//这一步可以省略，newIndex > originalIndex这一步太妙了，但是为了体现异常处理思想还是要单独考虑空字符串
+        //空字符串不能返回nullptr，因为这道题的返回值是一个对象而不是指针。
         int originalLength = s.length();
         int spaceNum = 0;
         for(int i = 0; i < s.length();++i)
