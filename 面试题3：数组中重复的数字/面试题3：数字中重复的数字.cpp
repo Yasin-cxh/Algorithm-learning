@@ -159,7 +159,7 @@ public:
             }
 
             if(count > mid - start + 1)//只适合每个位置都有数字的情况
-                end = mid;
+                end = mid;              //左半区包含mid
             else 
                 start = mid + 1;
         }
