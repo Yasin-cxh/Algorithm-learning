@@ -60,8 +60,11 @@ public:
 class Solution{
 public:
     int fib(int n){
+<<<<<<< HEAD
         if(n == 0) return 0;
         if(n == 1) return 1;
+=======
+>>>>>>> 64472964b4885ecbb8e7ebfba849a9ab48b77d6e
         int *dp = new int[n+1];
         int mod = 1e9+7;
         dp[0] = 0;
