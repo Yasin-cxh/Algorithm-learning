@@ -1,4 +1,5 @@
 #include<vector>
+#include<queue>
 using namespace std;
 //题目
 //地上有一个m行n列的方格。一个机器人从坐标(0,0)的格子开始移动，它每次可以向左、右、上、下移动一格，
@@ -98,5 +99,54 @@ int movingCount(int m, int n, int k){
     count = movingCountCore(0,0,m,n,k,visited);
     delete[] visited;
     return count;
+}
+};
+
+//淦啦，小孩太吵了
+
+//看了k神题解，我又行了
+
+//100内的数位和，因为数字每次加1,设 x (x 属于 [0,98]) x的数位和为sx
+//则 x + 1 的数位和 为 (x + 1) % 10 == 0 ? sx - 8 : sx + 1;
+
+//经证明 因为从(0,0)开始，每次只要走右(横坐标 增加) 和走下(纵坐标 增加)就能遍历成功
+//这也是为什么我感觉四个方向会有重复的原因，直觉还是准的(笑)
+
+//算法3：DFS
+//时间：O(mn) 空间:O(mn)
+class Solution{
+public:
+int dfs(int row, int col, int m, int n, int si, int sj, int k, vector<vector<bool>> &visited){
+    if(row >= m || col >= n || visited[row][col] || (si + sj) > k)  return 0;
+    return 1 + dfs(row+1,col,m,n,(row + 1) % 10 == 0? si-8: si + 1, sj,k,visited)
+             + dfs(row,col+1,m,n,si,(col + 1) % 10 == 0?sj-8:sj+1,k,visited);
+}
+int movingCount(int m, int n, int k){
+    vector<vector<bool>> visited(m,vector<bool>(n, 0));
+    return dfs(0,0,m,n,0,0,k,visited);
+}
+};
+
+//BFS
+//BFS一般使用队列实现
+//时间:O(mn) 空间:O(mn)
+class Solution{
+public:
+int movingCount(int m, int n, int k){
+    vector<vector<bool>> visited(m,vector<bool>(n,0));
+    queue<vector<int>> q;
+    int res = 0;
+    q.push({0,0,0,0});
+    while(!q.empty()){
+        vector<int> x = q.front();
+        q.pop();
+        int i = x[0], j = x[1], si = x[2], sj = x[3];
+        if(i>=m || j>= n || si+sj > k ||visited[i][j])continue;//visited[i][j]不能写在前面，因为下标可能是非法的
+        res++;
+        visited[i][j] = true;
+        q.push({i+1,j,(i+1)%10==0?si-8:si+1,sj});
+        q.push({i,j+1,si,(j+1)%10==0?sj-8:sj+1});
+    }
+    return res;
 }
 };
