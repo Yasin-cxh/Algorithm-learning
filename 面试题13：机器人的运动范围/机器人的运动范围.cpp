@@ -118,6 +118,7 @@ class Solution{
 public:
 int dfs(int row, int col, int m, int n, int si, int sj, int k, vector<vector<bool>> &visited){
     if(row >= m || col >= n || visited[row][col] || (si + sj) > k)  return 0;
+    visited[row][col] = true;
     return 1 + dfs(row+1,col,m,n,(row + 1) % 10 == 0? si-8: si + 1, sj,k,visited)
              + dfs(row,col+1,m,n,si,(col + 1) % 10 == 0?sj-8:sj+1,k,visited);
 }
