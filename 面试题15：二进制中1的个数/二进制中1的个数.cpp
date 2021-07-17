@@ -7,7 +7,7 @@
 int Numberof1(int n)
 {
     int count = 0;
-    int flag = 1;
+    unsigned int flag = 1;
     while(flag){
         if(flag & n) count ++;
         flag << 1;
