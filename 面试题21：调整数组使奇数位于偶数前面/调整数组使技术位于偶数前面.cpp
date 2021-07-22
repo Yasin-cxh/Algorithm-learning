@@ -33,8 +33,8 @@ public:
         if(nums.empty()) return result;
         int begin = 0, end = result.size()-1;
         while(begin < end){
-            while(result[end] & 0x1 == 0) --end;
-            while(result[begin] & 0x1 == 1) ++begin;
+            while(begin < end && (result[end] & 0x1) == 0) --end;
+            while((begin < end && result[begin] & 0x1) != 0) ++begin;
             if(begin < end){
                 int temp = result[end];
                 result[end] = result[begin];
@@ -45,3 +45,6 @@ public:
     }
 
 };
+
+//机试的话用双指针
+//手撕的话用函数指针
