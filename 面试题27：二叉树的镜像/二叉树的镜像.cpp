@@ -25,7 +25,7 @@ BinaryTreeNode* Mirror(BinaryTreeNode *root)
 }
 
 //LeetCode版本
-//前序遍历
+//后序遍历
   struct TreeNode {
     int val;
     TreeNode *left;
