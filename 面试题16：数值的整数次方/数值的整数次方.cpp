@@ -39,7 +39,8 @@ double myPow(double x, int n){
     if(n == 0) return 1.0;
     double  result = 1.0;
     unsigned int absn = (unsigned int)n;
-    if(n < 0) absn = (unsigned int)(-absn);//absn 必须为unsigned int或更大的数类型，防止int最小值变为最大值时的溢出
+    if(n < 0) absn = (unsigned int)(-absn);//这里不能写if(abs < 0) 因为abs 是>= 0 的
+    //absn 必须为unsigned int或更大的数类型，防止int最小值变为最大值时的溢出
     while(absn > 0)
     {
         if(absn % 2) result = x * result;
