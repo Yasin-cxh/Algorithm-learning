@@ -52,6 +52,7 @@ public:
             pNode = pNode->next;
         }
         preNode->next = pNode->next;
+        delete pNode;
         return head;
     }
 };
