@@ -79,7 +79,7 @@ void PrintMaxNRecursily(int n)
     char *number = new char[n+1];
     memset(number,'0',n);
     number[n] = '\n';
-    for(int i = 0; i < n;i++){
+    for(int i = 0; i < 10;i++){
         number[0] = i;
         Recursion(number,0,n); 
     }
