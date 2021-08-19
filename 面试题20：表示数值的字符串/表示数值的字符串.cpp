@@ -66,7 +66,7 @@ public:
         if(s[index] == '.')
         {
             ++index;
-            result = scanUnteger(s,index) || result;
+            result = scanUnteger(s,index) || result;//这里不能把result写在||运算的前面
         }
         if(s[index] == 'E' || s[index] == 'e')
         {
