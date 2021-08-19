@@ -40,7 +40,6 @@ class Soluton1{
 public:
 ListNode* reverseList(ListNode *head)
 {
-    if(head == nullptr) return head;
     ListNode *pPre = nullptr , *pCur = head, *pNext;
     while(pCur != nullptr){
         pNext = pCur->next;
