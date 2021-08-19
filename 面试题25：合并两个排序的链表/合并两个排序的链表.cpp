@@ -26,6 +26,7 @@ ListNode* mergeTwoLists(ListNode *l1, ListNode *l2){
 };
 
 //算法2：双指针
+//双指针就是虚拟头节点
 class Solution1{
 public:
     ListNode* mergerTwoLists(ListNode *l1, ListNode *l2){
