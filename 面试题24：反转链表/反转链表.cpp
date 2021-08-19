@@ -42,14 +42,12 @@ ListNode* reverseList(ListNode *head)
 {
     if(head == nullptr) return head;
     ListNode *pPre = nullptr , *pCur = head, *pNext;
-    ListNode *pReverseHead;
     while(pCur != nullptr){
         pNext = pCur->next;
         pCur->next = pPre;
         pPre = pCur;
         pCur = pNext;
     }
-    pReverseHead = pPre;
-    return pReverseHead;
+    return pPre;
 }
 };
