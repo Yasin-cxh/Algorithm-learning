@@ -41,7 +41,7 @@ bool IsPopOrder(const int *pPush, const int *pPop, int length)
         if(temp[tempIdx] != pPop[popIdx]){
             if(++pushIdx == length) return false;
             while(pPush[pushIdx] != pPop[popIdx]){
-                temp[++tempidx] = pPush[pushIdx++];
+                temp[++tempIdx] = pPush[pushIdx++];
                 if(pushIdx == length) return false;
             }
         }
