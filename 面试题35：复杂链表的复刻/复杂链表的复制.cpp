@@ -74,47 +74,44 @@ public:
     }
 };
 
-class Solution{
+class Solution {
 public:
-    void dupList(Node *head){
-        Node *pNode = head;
+    void doubleList(Node *head){
+        Node * pNode = head;
         while(pNode != nullptr){
-            Node *pNewNode = new Node(pNode->val);
-            pNewNode->next = pNode->next;
-            pNode->next = pNewNode;
-            pNode = pNewNode->next;
+            Node *newnode = new Node(pNode->val);
+            newnode->next = pNode->next;
+            pNode->next = newnode;
+            pNode = newnode->next;
         }
     }
     void updateRandom(Node *head){
         Node *pNode = head;
-        Node *pBackNode = pNode->next;
-        while(pNode != nullptr){
-            if(pNode->random == nullptr){
-                pBackNode->random = nullptr;
-            }else{
-                pBackNode->random = pNode->random->next;
-            }
-            pNode = pBackNode->next;
-            if(pNode != nullptr) pBackNode = pNode->next;
+        while(pNode!= nullptr){
+            
+            if(pNode->random != nullptr)pNode->next->random = pNode->random->next;
+            else pNode->next->random = nullptr;
+
+            pNode = pNode->next->next;
         }
     }
     Node* resumeList(Node *head){
-        Node *pNode = head;
-        Node *pCloneHead = pNode->next;
-        Node *pCloneNode = pCloneHead;
-        while(pNode != nullptr){
-            pNode->next = pCloneNode->next;
-            pNode = pCloneNode->next;
-            if(pNode != nullptr){
-                pCloneNode->next = pNode->next;
-                pCloneNode = pNode->next;
+        if(head == nullptr) return nullptr;
+        Node *pNode1 = head;
+        Node *pNode2 = head->next;;
+        Node *pNewHead = head->next;
+        while(pNode1 != nullptr){
+            pNode1->next = pNode2->next;
+            pNode1 = pNode2->next;
+            if(pNode1 != nullptr){
+                pNode2->next = pNode1->next;
+                pNode2 = pNode1->next;
             }
         }
-        return pCloneHead;
+        return pNewHead;
     }
-    Node* copyRandomList(Node *head){
-        if(head == nullptr ) return nullptr;
-        dupList(head);
+    Node* copyRandomList(Node* head) {
+        doubleList(head);
         updateRandom(head);
         return resumeList(head);
     }
