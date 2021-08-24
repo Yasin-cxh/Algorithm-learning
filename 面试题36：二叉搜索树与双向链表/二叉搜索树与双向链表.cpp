@@ -23,53 +23,24 @@ public:
     }
 };
 
-class Solution{
+class Solution {
 public:
-    void inorder(Node *root, Node* pre){
-        if(root == nullptr) return;
-        inorder(root->left, pre);
-        if(pre != nullptr) pre->right = root;
+    void conversion(Node *root){
+        if(root == nullptr) return ;
+        conversion(root->left);
+        if(pre!= nullptr) pre->right = root;
+        else head = root;
         root->left = pre;
-        inorder(root->right,root);
+        pre = root;
+        conversion(root->right);
     }
-    Node* treeToDoublyList(Node *root){
+    Node* treeToDoublyList(Node* root) {
         if(root == nullptr) return nullptr;
-        Node *listHead = root;
-        while(listHead != nullptr){
-            if(listHead->left == nullptr)break;
-            listHead = listHead->left;
-        }
-        Node *listEnd = root;
-        while(listEnd != nullptr ){//这么写居然会有问题！编译器不知道listEnd->right是不是nullptr,即使你是短路的写法，在LeetCode上也是不行的
-            if(listEnd->right == nullptr) break;
-            listEnd = listEnd->right;
-        }
-        inorder(root,nullptr);
-        listHead->left = listEnd;
-        listEnd->right = listHead;
-        return listHead;
-    }
-};
-
-//看了K神的解法自己写一遍
-class Solution1{
-public:
-    Node* treeToDoublyList(Node *root){
-        if(root == nullptr) return nullptr;
-        inorder(root);
+        conversion(root);
         head->left = pre;
         pre->right = head;
         return head;
     }
 private:
-    Node *head, *pre;
-    void inorder(Node *root){
-        if(root == nullptr) return;
-        inorder(root->left);
-        if(pre != nullptr) pre->right = root;
-        else head = root;
-        root->left = pre;
-        pre = root;
-        inorder(root->right);
-    }
+    Node *head = nullptr, *pre = nullptr;
 };
