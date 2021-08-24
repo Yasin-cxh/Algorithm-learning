@@ -68,3 +68,34 @@ public:
         return core(postorder,0,len-1);
     }
 };
+
+//LeetCode 自己写的版本
+class Solution {
+public:
+    bool check(vector<int> &postorder, int begin, int end){
+        if(begin == end) return true;
+        int ridx = -1;
+        int rootval = postorder[end];
+        for(int i = begin; i < end;i++){
+            if(postorder[i] > rootval){
+                ridx = i;
+                break;
+            }
+        }
+        if(ridx != -1){
+            for(int j = ridx +1; j<end;j++){
+                if(postorder[j] < rootval) return false;
+            }
+        }
+        bool res;
+        if(ridx == -1 || ridx == begin) res = check(postorder,begin,end-1);
+        else res = check(postorder,begin,ridx-1) && check(postorder,ridx,end-1);
+        return res;
+
+    }
+    bool verifyPostorder(vector<int>& postorder) {
+        if(postorder.empty()) return true;//空树定义为是二叉搜索树
+        int begin = 0, end = postorder.size()-1;
+        return check(postorder,begin, end);
+    }
+};
