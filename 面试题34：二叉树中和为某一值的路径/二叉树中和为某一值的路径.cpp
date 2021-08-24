@@ -41,3 +41,26 @@ public:
         return result;
     }
 };
+
+//LeetCode版本 修改
+class Solution {
+public:
+    void findPath(vector<vector<int>> &res, vector<int> & path, TreeNode *root, int &curSum,int target){
+        if(root == nullptr) return;
+        curSum += root->val;
+        path.push_back(root->val);
+        if(curSum == target && root->left== nullptr && root->right == nullptr)res.push_back(path);
+        findPath(res,path,root->left,curSum,target);
+        findPath(res,path,root->right,curSum,target);
+        curSum -= root->val;
+        path.pop_back();
+    }
+    vector<vector<int>> pathSum(TreeNode* root, int target) {
+        vector<vector<int>> res;
+        if(root == nullptr) return res;
+        vector<int> path;
+        int curSum = 0;
+        findPath(res,path,root,curSum,target);
+        return res;
+    }
+};
