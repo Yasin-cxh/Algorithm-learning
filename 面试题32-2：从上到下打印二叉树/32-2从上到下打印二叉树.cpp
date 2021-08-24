@@ -37,3 +37,28 @@ public:
         return result;
     }
 };
+
+//双辅助队列
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if(root == nullptr)return res;
+        queue<TreeNode*> que;
+        que.push(root);
+        while(!que.empty()){
+            queue<TreeNode*> level;
+            vector<int> temp;
+            while(!que.empty()){
+                TreeNode* pNode = que.front();
+                temp.push_back(pNode->val);
+                if(pNode->left != nullptr) level.push(pNode->left);
+                if(pNode->right != nullptr) level.push(pNode->right);
+                que.pop();
+            }
+            res.push_back(temp);
+            que = level;
+        }
+        return res;
+    }
+};
