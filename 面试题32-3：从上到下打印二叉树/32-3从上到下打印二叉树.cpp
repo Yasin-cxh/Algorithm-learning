@@ -50,3 +50,39 @@ public:
         return result;
     }
 };
+
+//双辅助队列，辅助栈
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if(root == nullptr) return res;
+        queue<TreeNode *> que;
+        que.push(root);
+        bool right = false;
+        while(!que.empty()){
+            queue<TreeNode*>level;
+            vector<int> temp;
+            stack<int> stk;
+            while(!que.empty()){
+                TreeNode * pNode = que.front();
+                if(right) stk.push(pNode->val);
+                else temp.push_back(pNode->val);
+                if(pNode->left) level.push(pNode->left);
+                if(pNode->right) level.push(pNode->right);
+                que.pop(); 
+            }
+            if(right){
+                while(!stk.empty()){
+                    temp.push_back(stk.top());
+                    stk.pop();
+                }
+            }
+            res.push_back(temp);
+            right = !right;
+            que = level;
+            
+        }
+        return res;
+    }
+};
