@@ -94,51 +94,53 @@ public:
 
 //修改版
 #include<sstream>
-class Solution1
-{
+class Codec {
 public:
-string serialize(TreeNode *root){
-    if(root == nullptr) return "";
-    queue<TreeNode *> que;
-    que.push(root);
-    ostringstream output;
-    while(!que.empty()){
-        TreeNode *pNode = que.front();
-        que.pop();
-        if(pNode == nullptr){
-            output<<"$,";
-        }
-        else {
-        output<<pNode->val<<',';
-        que.push(pNode->left);
-        que.push(pNode->right);
-        }
-    }
-    return output.str();
-}
-TreeNode* Deserialize(string data){
-    if(data.empty()) return nullptr;
-    queue<TreeNode **>que;
-    TreeNode *pNode = nullptr;
-    que.push(&pNode);
-    string::size_type beginIdx = 0;
-    string::size_type findIdx = data.find(",",beginIdx);
-    while(findIdx != string::npos){
-        string temp = data.substr(beginIdx,findIdx-beginIdx);
-        if(temp == "$"){
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(root == nullptr) return "";
+        ostringstream output;
+        queue<TreeNode*>que;
+        que.push(root);
+        while(!que.empty()){
+            TreeNode *node = que.front();
             que.pop();
-        } else{
-            TreeNode **pTemp = que.front();
-            que.pop();
-            *pTemp = new TreeNode(stoi(temp));
-            (*pTemp)->left = nullptr;
-            (*pTemp)->right = nullptr;
-            que.push(&((*pTemp)->left));
-            que.push(&((*pTemp)->right));
+            if(node == nullptr){
+                output<<"$,";
+            }else{
+                output<<node->val<<",";
+                que.push(node->left);
+                que.push(node->right);
+            }
         }
-        beginIdx = findIdx + 1;
-        findIdx = data.find(",",beginIdx);
+        return output.str();
+
     }
-        return pNode;
-}
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if(data == "")return nullptr;
+        size_t beginidx = 0;
+        size_t findidx =0;
+        queue<TreeNode**> que;//这里用**的原因是为了方便找到root
+        TreeNode* root;
+        que.push(&root);
+        findidx = data.find(",",beginidx);
+        while(findidx != string::npos){
+            string temp = data.substr(beginidx,findidx-beginidx);
+            if(temp == "$"){
+                que.pop();
+            }else{
+                TreeNode** node = que.front();
+                que.pop();
+                *node = new TreeNode(stoi(temp));//这里要使用stoi而不是atoi,因为参数不同
+                que.push(&(*node)->left);
+                que.push(&(*node)->right);
+            }
+            beginidx = findidx + 1;
+            findidx = data.find(",",beginidx);
+        }
+        return root;
+    }
 };
