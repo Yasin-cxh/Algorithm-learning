@@ -14,7 +14,7 @@ public:
         if(n < 0)return -1;
         if(n < 10) return n;
         int base = 10, bitnums = 2;
-        int totalNums = 10, preTotalNums;
+        long long totalNums = 10, preTotalNums;
         int ans;
         while(true){
             preTotalNums = totalNums;
